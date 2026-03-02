@@ -33,11 +33,26 @@ public:
     }
 
    
-    void Draw(Shader& shader)
+    void Draw(Shader& shader, glm::mat4* modelMatrices)
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
+        {
+            unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");
+
+            
+            if (i < 4) {
+                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrices[i]));
+            }
+            else {
+                
+                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrices[3]));
+            }
+
             meshes[i].Draw(shader);
+        }
     }
+
+
 
 private:
 
