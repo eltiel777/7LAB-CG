@@ -59,7 +59,7 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     Shader myShader("vertex.glsl", "fragment.glsl");
-    Model ourModel("lab322.obj");
+    Model ourModel("lab312.obj");
 
     glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
