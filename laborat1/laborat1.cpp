@@ -137,18 +137,56 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) moveBase += deltaTime * 2.0f;
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) moveBase -= deltaTime * 2.0f;
+    float moveSpeed = deltaTime * 2.0f;
+    float rotSpeed = deltaTime * 50.0f;
 
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) rotateJoint1 += deltaTime * 50.0f;
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) rotateJoint1 -= deltaTime * 50.0f;
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        float newMove = moveBase + moveSpeed;
+        if (newMove <= 3.0f) { 
+            moveBase = newMove;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        float newMove = moveBase - moveSpeed;
+        if (newMove >= -3.0f) { 
+            moveBase = newMove;
+        }
+    }
 
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) rotateJoint2 += deltaTime * 50.0f;
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) rotateJoint2 -= deltaTime * 50.0f;
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) rotateJoint1 += rotSpeed;
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) rotateJoint1 -= rotSpeed;
 
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) rotateJoint3 += deltaTime * 50.0f;
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) rotateJoint3 -= deltaTime * 50.0f;
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+        float newRot = rotateJoint2 + rotSpeed;
+   
+        if (newRot <= 60.0f) {
+            rotateJoint2 = newRot;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+        float newRot = rotateJoint2 - rotSpeed;
+
+        if (newRot >= -45.0f) {
+            rotateJoint2 = newRot;
+        }
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        float newRot = rotateJoint3 + rotSpeed;
+
+        if (newRot <= 120.0f) {
+            rotateJoint3 = newRot;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+        float newRot = rotateJoint3 - rotSpeed;
+
+        if (newRot >= -120.0f) {
+            rotateJoint3 = newRot;
+        }
+    }
 }
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
